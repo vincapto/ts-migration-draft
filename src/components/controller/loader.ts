@@ -1,6 +1,5 @@
 import { CallbackSources } from '../app/app';
 import { IData } from '../view/appView';
-import { IArticle } from '../view/news/news';
 
 interface IOptions {
   [x: string]: string;
@@ -17,7 +16,13 @@ interface IReqOption {
   options?: IOptions;
 }
 
-type Method = 'GET' | 'POST' | 'PUT';
+enum EMethod {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+}
+
+type Method = keyof typeof EMethod;
 
 class Loader {
   baseLink: string;
@@ -26,9 +31,11 @@ class Loader {
     this.baseLink = baseLink;
     this.options = options;
   }
+
   errorCallback = () => {
     console.error('No callback for GET response');
   };
+
   getResp(
     { endpoint, options = {} }: IReqOption,
     callback: CallbackSources = this.errorCallback
