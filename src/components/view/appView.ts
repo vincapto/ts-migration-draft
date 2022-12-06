@@ -17,12 +17,14 @@ export interface IData {
   sources: ISource[];
 }
 
+type DrawFuncType = (data: IData) => void;
+
 export interface IAppView {
-  drawNews: (d: IData) => void;
-  drawSources: (d: IData) => void;
+  drawNews: DrawFuncType;
+  drawSources: DrawFuncType;
 }
 
-export class AppView {
+export class AppView implements IAppView {
   news: INews;
   sources: ISourceClass;
   constructor() {
@@ -30,12 +32,12 @@ export class AppView {
     this.sources = new Sources();
   }
 
-  drawNews(data: IData) {
+  drawNews(data: IData): void {
     const values: IArticle[] | [] = data?.articles ? data?.articles : [];
     this.news.draw(values);
   }
 
-  drawSources(data: IData) {
+  drawSources(data: IData): void {
     const values = data?.sources ? data?.sources : [];
     this.sources.draw(values);
   }

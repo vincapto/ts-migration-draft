@@ -21,7 +21,7 @@ export interface INews {
 }
 
 class News implements INews {
-  draw(data: IArticle[]): void {
+  public draw(data: IArticle[]): void {
     const news: IArticle[] =
       data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 

@@ -1,49 +1,41 @@
 import { CallbackSources } from '../app/app';
 import { IData } from '../view/appView';
 
-interface IOptions {
-  [x: string]: string;
-}
-
-interface IResponse {
-  ok: boolean;
-  status: number;
-  statusText: string;
-}
+type Options = Record<string, string> | object;
 
 interface IReqOption {
   endpoint: string;
-  options?: IOptions;
+  options?: Options;
 }
 
-enum EMethod {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
+enum MethodList {
+  GET,
+  POST,
+  PUT,
 }
 
-type Method = keyof typeof EMethod;
+type Method = keyof typeof MethodList;
 
 class Loader {
   baseLink: string;
-  options: IOptions;
-  constructor(baseLink: string, options: IOptions) {
+  options: Options;
+  constructor(baseLink: string, options: Options) {
     this.baseLink = baseLink;
     this.options = options;
   }
 
-  errorCallback = () => {
+  private errorCallback = () => {
     console.error('No callback for GET response');
   };
 
-  getResp(
+  public getResp(
     { endpoint, options = {} }: IReqOption,
     callback: CallbackSources = this.errorCallback
   ): void {
     this.load('GET', endpoint, callback, options);
   }
 
-  errorHandler<T extends IResponse>(res: T): T {
+  private errorHandler<T extends Response>(res: T): T {
     if (!res.ok) {
       if (res.status === 401 || res.status === 404)
         console.log(
@@ -55,7 +47,7 @@ class Loader {
     return res;
   }
 
-  makeUrl(options: IOptions, endpoint: string) {
+  private makeUrl(options: Options, endpoint: string) {
     const urlOptions = { ...this.options, ...options };
     let url = `${this.baseLink}${endpoint}?`;
 
@@ -66,7 +58,7 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  load(
+  private load(
     method: Method,
     endpoint: string,
     callback: (data: IData) => void,

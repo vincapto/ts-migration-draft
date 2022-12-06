@@ -6,7 +6,7 @@ export interface ISourceClass {
 }
 
 class Sources implements ISourceClass {
-  draw(data: ISource[]): void {
+  public draw(data: ISource[]): void {
     const fragment = document.createDocumentFragment();
     const sourceItemTemp = document.querySelector(
       '#sourceItemTemp'
