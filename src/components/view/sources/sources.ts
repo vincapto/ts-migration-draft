@@ -1,5 +1,6 @@
+import { ISource } from "../../../interfaces/common";
+
 import './sources.css';
-import { ISource } from '../appView';
 
 export interface ISourceClass {
   draw: (data: ISource[]) => void;
@@ -7,17 +8,15 @@ export interface ISourceClass {
 
 class Sources implements ISourceClass {
   public draw(data: ISource[]): void {
-    const fragment = document.createDocumentFragment();
-    const sourceItemTemp = document.querySelector(
+    const fragment: DocumentFragment = document.createDocumentFragment();
+    const sourceItemTemp: HTMLTemplateElement | null = document.querySelector(
       '#sourceItemTemp'
-    ) as HTMLTemplateElement;
+    );
 
     data.forEach((item: ISource) => {
-      const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement;
+      const sourceClone = sourceItemTemp?.content.cloneNode(true) as HTMLElement;
 
-      (<HTMLElement>(
-        sourceClone.querySelector('.source__item-name')
-      )).textContent = item.name;
+      ((sourceClone.querySelector('.source__item-name')))!.textContent = item.name;
       sourceClone
         .querySelector('.source__item')
         ?.setAttribute('data-source-id', item.id);

@@ -1,21 +1,9 @@
 import News from './news/news';
 import Sources from './sources/sources';
-import { IArticle, INews } from './news/news';
-import { ISourceClass } from './sources/sources';
 
-export interface ISource {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  category: string;
-  language: string;
-  country: string;
-}
-export interface IData {
-  articles: IArticle[];
-  sources: ISource[];
-}
+import { INews } from './intecfaces';
+import { ISourceClass } from './sources/sources';
+import { IArticle, IData } from "../../interfaces/common";
 
 type DrawFuncType = (data: IData) => void;
 

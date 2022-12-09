@@ -1,5 +1,5 @@
-import { CallbackSources } from '../app/app';
-import { IData } from '../view/appView';
+import { IData } from "../../interfaces/common";
+import { CallbackSources } from "../../types/common";
 
 type Options = Record<string, string> | object;
 

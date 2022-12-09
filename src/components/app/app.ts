@@ -1,9 +1,6 @@
 import AppController from '../controller/controller';
-import { AppView, IData } from '../view/appView';
-
-export type CallbackNews = (data: IData) => void;
-export type CallbackEmpty = () => void;
-export type CallbackSources = (data: IData) => void | CallbackEmpty;
+import { AppView } from '../view/appView';
+import { IData } from "../../interfaces/common";
 
 class App {
   controller: AppController;
@@ -17,7 +14,7 @@ class App {
     document
       .querySelector('.sources')
       ?.addEventListener('click', (e: Event) =>
-        this.controller.getNews(e, (data) => this.view.drawNews(data))
+        this.controller.getNews(e, (data: IData) => this.view.drawNews(data))
       );
     this.controller.getSources((data: IData) => this.view.drawSources(data));
   }

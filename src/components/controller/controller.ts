@@ -1,5 +1,5 @@
 import AppLoader from './appLoader';
-import { CallbackNews, CallbackSources } from '../app/app';
+import { CallbackNews, CallbackSources } from "../../types/common";
 
 export interface IController {
   getSources: (d: () => void) => void;
